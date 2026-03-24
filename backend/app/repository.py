@@ -1,20 +1,77 @@
+import os
+import sqlite3
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+DEFAULT_DB_PATH = Path("artifacts/runtime/support-assistant.db")
+
+
 class TicketRepository:
-    def __init__(self) -> None:
+    def __init__(self, db_path: str | Path | None = None) -> None:
         self.storage_name = "tickets"
-        self._tickets = {
-            "TKT-1001": {
-                "id": "TKT-1001",
-                "requester_name": "Marina Costa",
-                "requester_email": "marina.costa@example.com",
-                "subject": "Cannot access payroll portal",
-                "description": "The payroll portal keeps showing an access denied message.",
-                "status": "open",
-            }
-        }
-        self._next_id = 1002
+        resolved = db_path or os.getenv("SUPPORT_ASSISTANT_DB_PATH") or DEFAULT_DB_PATH
+        self.db_path = Path(resolved)
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self._initialize_database()
+
+    def _connect(self) -> sqlite3.Connection:
+        connection = sqlite3.connect(self.db_path)
+        connection.row_factory = sqlite3.Row
+        return connection
+
+    def _initialize_database(self) -> None:
+        with self._connect() as connection:
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS tickets (
+                    id TEXT PRIMARY KEY,
+                    requester_name TEXT NOT NULL,
+                    requester_email TEXT NOT NULL,
+                    subject TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
+            row = connection.execute("SELECT COUNT(*) AS count FROM tickets").fetchone()
+            if row["count"] == 0:
+                connection.execute(
+                    """
+                    INSERT INTO tickets (
+                        id,
+                        requester_name,
+                        requester_email,
+                        subject,
+                        description,
+                        status,
+                        created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        "TKT-1001",
+                        "Marina Costa",
+                        "marina.costa@example.com",
+                        "Cannot access payroll portal",
+                        "The payroll portal keeps showing an access denied message.",
+                        "open",
+                        "2026-03-24T09:00:00+00:00",
+                    ),
+                )
+            connection.commit()
 
     def get_ticket(self, ticket_id: str) -> dict | None:
-        return self._tickets.get(ticket_id)
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT id, requester_name, requester_email, subject, description, status, created_at
+                FROM tickets
+                WHERE id = ?
+                """,
+                (ticket_id,),
+            ).fetchone()
+        return dict(row) if row else None
 
     def create_ticket(
         self,
@@ -24,8 +81,8 @@ class TicketRepository:
         subject: str,
         description: str,
     ) -> dict:
-        ticket_id = f"TKT-{self._next_id}"
-        self._next_id += 1
+        ticket_id = self._next_ticket_id()
+        created_at = datetime.now(timezone.utc).isoformat()
         ticket = {
             "id": ticket_id,
             "requester_name": requester_name,
@@ -33,6 +90,46 @@ class TicketRepository:
             "subject": subject,
             "description": description,
             "status": "open",
+            "created_at": created_at,
         }
-        self._tickets[ticket_id] = ticket
+        with self._connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO tickets (
+                    id,
+                    requester_name,
+                    requester_email,
+                    subject,
+                    description,
+                    status,
+                    created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    ticket["id"],
+                    ticket["requester_name"],
+                    ticket["requester_email"],
+                    ticket["subject"],
+                    ticket["description"],
+                    ticket["status"],
+                    ticket["created_at"],
+                ),
+            )
+            connection.commit()
         return ticket
+
+    def _next_ticket_id(self) -> str:
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT id
+                FROM tickets
+                WHERE id LIKE 'TKT-%'
+                ORDER BY CAST(SUBSTR(id, 5) AS INTEGER) DESC
+                LIMIT 1
+                """
+            ).fetchone()
+        if row is None:
+            return "TKT-1001"
+        next_number = int(row["id"].split("-")[1]) + 1
+        return f"TKT-{next_number}"
