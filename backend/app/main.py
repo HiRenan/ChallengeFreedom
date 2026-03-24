@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, status
 
@@ -15,10 +16,10 @@ def configure_logging() -> logging.Logger:
     return logging.getLogger(LOGGER_NAME)
 
 
-def create_app() -> FastAPI:
+def create_app(db_path: str | Path | None = None) -> FastAPI:
     app = FastAPI(title="ChallengeFreedom Support Assistant")
     app.state.logger = configure_logging()
-    app.state.ticket_repository = TicketRepository()
+    app.state.ticket_repository = TicketRepository(db_path=db_path)
 
     @app.get("/health")
     def read_health() -> HealthResponse:
