@@ -1,4 +1,14 @@
-plano.md
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.env
 AGENTS.md
-
+plano.md
 private/
+.codex/
+artifacts/runtime/

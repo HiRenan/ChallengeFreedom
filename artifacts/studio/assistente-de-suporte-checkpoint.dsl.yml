@@ -1,0 +1,1212 @@
+app:
+  description: ""
+  icon: 🤖
+  icon_background: "#FFEAD5"
+  mode: advanced-chat
+  name: Assistente de Suporte
+  use_icon_as_answer_icon: false
+dependencies:
+  - current_identifier: null
+    type: marketplace
+    value:
+      marketplace_plugin_unique_identifier: langgenius/openai:0.3.2@d70fb969e7c79719bee96573a8f4c9dc4ffd984f4171b9184cc3869c886af45d
+      version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+        - .JPG
+        - .JPEG
+        - .PNG
+        - .GIF
+        - .WEBP
+        - .SVG
+      allowed_file_types:
+        - image
+      allowed_file_upload_methods:
+        - local_file
+        - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+      number_limits: 3
+    opening_statement: ""
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ""
+      voice: ""
+  graph:
+    edges:
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: start
+          targetType: question-classifier
+        id: 1774406282983-source-1774406459361-target
+        source: "1774406282983"
+        sourceHandle: source
+        target: "1774406459361"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: knowledge-retrieval
+        id: 1774406459361-1-1774406591262-target
+        source: "1774406459361"
+        sourceHandle: "1"
+        target: "1774406591262"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: knowledge-retrieval
+          targetType: llm
+        id: 1774406591262--1774406668951-target
+        source: "1774406591262"
+        sourceHandle: source
+        target: "1774406668951"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1774406668951--1774406758970-target
+        source: "1774406668951"
+        sourceHandle: source
+        target: "1774406758970"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: parameter-extractor
+        id: 1774406459361-2-1774406928180-target
+        source: "1774406459361"
+        sourceHandle: "2"
+        target: "1774406928180"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: parameter-extractor
+        id: 1774406459361-1774406479858-1774407006128-target
+        source: "1774406459361"
+        sourceHandle: "1774406479858"
+        target: "1774407006128"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: answer
+        id: 1774406459361-1774406488071-1774407023191-target
+        source: "1774406459361"
+        sourceHandle: "1774406488071"
+        target: "1774407023191"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: parameter-extractor
+          targetType: if-else
+        id: 1774407006128--1774407391216-target
+        source: "1774407006128"
+        sourceHandle: source
+        target: "1774407391216"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: http-request
+        id: 1774407391216-true-1774407454252-target
+        source: "1774407391216"
+        sourceHandle: "true"
+        target: "1774407454252"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774407391216-false-1774407519515-target
+        source: "1774407391216"
+        sourceHandle: "false"
+        target: "1774407519515"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: parameter-extractor
+          targetType: if-else
+        id: 1774406928180--1774407637795-target
+        source: "1774406928180"
+        sourceHandle: source
+        target: "1774407637795"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: http-request
+        id: 1774407637795-true-1774407654946-target
+        source: "1774407637795"
+        sourceHandle: "true"
+        target: "1774407654946"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774407637795-false-1774407667947-target
+        source: "1774407637795"
+        sourceHandle: "false"
+        target: "1774407667947"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: if-else
+        id: 1774407654946-source-1774440983202-target
+        source: "1774407654946"
+        sourceHandle: source
+        target: "1774440983202"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774440983202-73e89292-6813-4a58-a1db-e8a9e534a138-1774441718365-target
+        source: "1774440983202"
+        sourceHandle: 73e89292-6813-4a58-a1db-e8a9e534a138
+        target: "1774441718365"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774440983202-f5efa6d6-61e4-4272-84dd-21a9a0ad6313-1774441776060-target
+        source: "1774440983202"
+        sourceHandle: f5efa6d6-61e4-4272-84dd-21a9a0ad6313
+        target: "1774441776060"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774440983202-false-1774441825157-target
+        source: "1774440983202"
+        sourceHandle: "false"
+        target: "1774441825157"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: if-else
+        id: 1774407654946-fail-branch-1774443202581-target
+        source: "1774407654946"
+        sourceHandle: fail-branch
+        target: "1774443202581"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774443202581-true-1774443319214-target
+        source: "1774443202581"
+        sourceHandle: "true"
+        target: "1774443319214"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774443202581-ac34f57d-989c-43a1-b7e5-905a25f12033-1774444456781-target
+        source: "1774443202581"
+        sourceHandle: ac34f57d-989c-43a1-b7e5-905a25f12033
+        target: "1774444456781"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774443202581-false-1774441825157-target
+        source: "1774443202581"
+        sourceHandle: "false"
+        target: "1774441825157"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: if-else
+        id: 1774407454252-fail-branch-1774445600001-target
+        source: "1774407454252"
+        sourceHandle: fail-branch
+        target: "1774445600001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774445600001-true-1774445600002-target
+        source: "1774445600001"
+        sourceHandle: "true"
+        target: "1774445600002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: answer
+        id: 1774445600001-false-1774441825157-target
+        source: "1774445600001"
+        sourceHandle: "false"
+        target: "1774441825157"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: code
+        id: 1774440983202-true-1774447000001-target
+        source: "1774440983202"
+        sourceHandle: "true"
+        target: "1774447000001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: code
+          targetType: answer
+        id: 1774447000001-source-1774441392922-target
+        source: "1774447000001"
+        sourceHandle: source
+        target: "1774441392922"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: code
+        id: 1774407454252-source-1774447000002-target
+        source: "1774407454252"
+        sourceHandle: source
+        target: "1774447000002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: code
+          targetType: answer
+        id: 1774447000002-source-1774441890075-target
+        source: "1774447000002"
+        sourceHandle: source
+        target: "1774441890075"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          selected: false
+          title: User Input
+          type: start
+          variables: []
+        height: 73
+        id: "1774406282983"
+        position:
+          x: 0
+          y: 452
+        positionAbsolute:
+          x: 0
+          y: 452
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          classes:
+            - id: "1"
+              name: knowledge - perguntas sobre FAQ, documentacao e procedimento de suporte
+            - id: "2"
+              name: lookup_ticket - consultar ou verificar ticket existente com ID TKT-1234
+            - id: "1774406479858"
+              name: create_ticket - abrir ou criar novo ticket para um problema real
+            - id: "1774406488071"
+              name: ambiguous - mensagem vaga ou sem contexto suficiente
+          instructions: ""
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: gpt-4
+            provider: langgenius/openai/openai
+          query_variable_selector:
+            - "1774406282983"
+            - sys.query
+          selected: false
+          title: Question Classifier
+          type: question-classifier
+          vision:
+            enabled: false
+        height: 246
+        id: "1774406459361"
+        position:
+          x: 342
+          y: 366
+        positionAbsolute:
+          x: 342
+          y: 366
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          dataset_ids:
+            - XJ1JQuH2qteL9xP73+5D26I6xsoJ9Uf+yFidoKcCN4RS3CUZMrssqE8f4xhuUpJe
+          multiple_retrieval_config:
+            reranking_enable: false
+            reranking_mode: weighted_score
+            top_k: 4
+            weights:
+              keyword_setting:
+                keyword_weight: 0
+              vector_setting:
+                embedding_model_name: text-embedding-3-large
+                embedding_provider_name: langgenius/openai/openai
+                vector_weight: 1
+              weight_type: customized
+          query_attachment_selector: []
+          query_variable_selector:
+            - "1774406282983"
+            - sys.query
+          retrieval_mode: multiple
+          selected: false
+          title: Knowledge Retrieval
+          type: knowledge-retrieval
+        height: 90
+        id: "1774406591262"
+        position:
+          x: 704
+          y: 370
+        positionAbsolute:
+          x: 704
+          y: 370
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          context:
+            enabled: true
+            variable_selector:
+              - "1774406591262"
+              - result
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: gpt-4
+            provider: langgenius/openai/openai
+          prompt_template:
+            - id: 689f0386-b907-4aea-b8fc-020648fa9806
+              role: system
+              text: "{{#context#}}Responda em portugues do Brasil.
+
+                Use apenas o contexto recuperado da base de conhecimento para responder.
+
+                Se o contexto nao trouxer a resposta, diga de forma curta que nao encontrei
+                essa informacao na base de conhecimento.
+
+                Nao invente politicas, prazos ou status.
+
+                Responda de forma direta e operacional."
+          reasoning_format: tagged
+          selected: false
+          title: LLM 2
+          type: llm
+          vision:
+            enabled: false
+        height: 88
+        id: "1774406668951"
+        position:
+          x: 1046
+          y: 371
+        positionAbsolute:
+          x: 1046
+          y: 371
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: "{{#1774406668951.text#}}"
+          selected: false
+          title: Answer 2
+          type: answer
+          variables: []
+        height: 102
+        id: "1774406758970"
+        position:
+          x: 1388
+          y: 364
+        positionAbsolute:
+          x: 1388
+          y: 364
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          instruction:
+            Extraia apenas o ticket_id quando o usuario informar ou pedir
+            consulta de ticket. Se o ID nao estiver claro, deixe em branco.
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: gpt-4
+            provider: langgenius/openai/openai
+          parameters:
+            - description: Ticket identifier in the format TKT-<number>.
+              name: ticket_id
+              required: true
+              type: string
+          query:
+            - sys
+            - query
+          reasoning_mode: prompt
+          selected: false
+          title: Lookup Extractor
+          type: parameter-extractor
+          vision:
+            enabled: false
+        height: 88
+        id: "1774406928180"
+        position:
+          x: 704
+          y: 540
+        positionAbsolute:
+          x: 704
+          y: 540
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          instruction:
+            Extraia requester_name, requester_email, subject e description
+            quando o usuario quiser abrir um ticket. Se algum campo nao estiver claro,
+            deixe em branco.
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: gpt-4
+            provider: langgenius/openai/openai
+          parameters:
+            - description: Detailed description of the support issue.
+              name: description
+              required: true
+              type: string
+            - description: Name of the person opening the ticket.
+              name: requester_name
+              required: true
+              type: string
+            - description: Email address of the requester.
+              name: requester_email
+              required: true
+              type: string
+            - description: Short subject of the support issue.
+              name: subject
+              required: true
+              type: string
+          query:
+            - sys
+            - query
+          reasoning_mode: prompt
+          selected: false
+          title: Create Extractor
+          type: parameter-extractor
+          vision:
+            enabled: false
+        height: 88
+        id: "1774407006128"
+        position:
+          x: 704
+          y: 708
+        positionAbsolute:
+          x: 704
+          y: 708
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer:
+            "Posso te ajudar de três formas: responder uma dúvida de suporte,
+            consultar um ticket pelo ID ou abrir um novo ticket. Me diga qual dessas
+            opções você quer seguir."
+          selected: false
+          title: Ambiguous Reply
+          type: answer
+          variables: []
+        height: 164
+        id: "1774407023191"
+        position:
+          x: 704
+          y: 876
+        positionAbsolute:
+          x: 704
+          y: 876
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          cases:
+            - case_id: "true"
+              conditions:
+                - comparison_operator: not empty
+                  id: e9863899-83e9-48d1-9911-4c1d67e7dc44
+                  value: ""
+                  varType: string
+                  variable_selector:
+                    - "1774407006128"
+                    - requester_name
+                - comparison_operator: not empty
+                  id: d120d793-a98c-4249-a4a6-25a0be2fe59e
+                  value: ""
+                  varType: string
+                  variable_selector:
+                    - "1774407006128"
+                    - requester_email
+                - comparison_operator: not empty
+                  id: ca252fce-c8ca-4f4d-a781-3c496aa0fae5
+                  value: ""
+                  varType: string
+                  variable_selector:
+                    - "1774407006128"
+                    - subject
+                - comparison_operator: not empty
+                  id: d38b591a-649d-480a-a752-8c815910a68c
+                  value: ""
+                  varType: string
+                  variable_selector:
+                    - "1774407006128"
+                    - description
+              id: "true"
+              logical_operator: and
+          selected: false
+          title: IF/ELSE
+          type: if-else
+        height: 202
+        id: "1774407391216"
+        position:
+          x: 1066
+          y: 1004
+        positionAbsolute:
+          x: 1066
+          y: 1004
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          authorization:
+            config: null
+            type: no-auth
+          body:
+            data:
+              - id: key-value-415
+                key: ""
+                type: text
+                value:
+                  "{\n  \"requester_name\": \"{{#1774407006128.requester_name#}}\"\
+                  ,\n  \"requester_email\": \"{{#1774407006128.requester_email#}}\",\n\
+                  \  \"subject\": \"{{#1774407006128.subject#}}\",\n  \"description\"\
+                  : \"{{#1774407006128.description#}}\"\n}"
+            type: json
+          error_strategy: fail-branch
+          headers: ""
+          method: post
+          params: ""
+          retry_config:
+            max_retries: 3
+            retry_enabled: true
+            retry_interval: 100
+          selected: false
+          ssl_verify: true
+          timeout:
+            max_connect_timeout: 0
+            max_read_timeout: 0
+            max_write_timeout: 0
+          title: Create Ticket Request
+          type: http-request
+          url: https://importantly-pressure-elderly-injuries.trycloudflare.com/tickets
+          variables: []
+        height: 190
+        id: "1774407454252"
+        position:
+          x: 1428
+          y: 1030
+        positionAbsolute:
+          x: 1428
+          y: 1030
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer:
+            Para abrir o ticket, envie nome, email, assunto e descrição do problema
+            em uma única mensagem.
+          selected: false
+          title: Create Missing Fields Reply
+          type: answer
+          variables: []
+        height: 132
+        id: "1774407519515"
+        position:
+          x: 1428
+          y: 1300
+        positionAbsolute:
+          x: 1428
+          y: 1300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          cases:
+            - case_id: "true"
+              conditions:
+                - comparison_operator: not empty
+                  id: 2a3f6d37-ccd1-4402-936d-7d7b77c6f326
+                  value: ""
+                  varType: string
+                  variable_selector:
+                    - "1774406928180"
+                    - ticket_id
+              id: "true"
+              logical_operator: and
+          selected: false
+          title: IF/ELSE 2
+          type: if-else
+        height: 124
+        id: "1774407637795"
+        position:
+          x: 1066
+          y: 576
+        positionAbsolute:
+          x: 1066
+          y: 576
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          authorization:
+            config: null
+            type: no-auth
+          body:
+            data: []
+            type: none
+          error_strategy: fail-branch
+          headers: ""
+          method: get
+          params: ""
+          retry_config:
+            max_retries: 3
+            retry_enabled: true
+            retry_interval: 100
+          selected: false
+          ssl_verify: true
+          timeout:
+            max_connect_timeout: 0
+            max_read_timeout: 0
+            max_write_timeout: 0
+          title: Lookup Ticket Request
+          type: http-request
+          url: https://importantly-pressure-elderly-injuries.trycloudflare.com/tickets/{{#1774406928180.ticket_id#}}
+          variables: []
+        height: 208
+        id: "1774407654946"
+        position:
+          x: 1428
+          y: 546
+        positionAbsolute:
+          x: 1428
+          y: 546
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: Para consultar um ticket, envie o ID no formato TKT-1234.
+          selected: false
+          title: Lookup Missing ID Reply
+          type: answer
+          variables: []
+        height: 116
+        id: "1774407667947"
+        position:
+          x: 1428
+          y: 834
+        positionAbsolute:
+          x: 1428
+          y: 834
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          cases:
+            - case_id: "true"
+              conditions:
+                - comparison_operator: "="
+                  id: d29c4530-dfa7-435b-8eaa-34db2868ffac
+                  value: "200"
+                  varType: number
+                  variable_selector:
+                    - "1774407654946"
+                    - status_code
+              id: "true"
+              logical_operator: and
+            - case_id: 73e89292-6813-4a58-a1db-e8a9e534a138
+              conditions:
+                - comparison_operator: "="
+                  id: 2ca925c6-00fd-4dd3-881f-5e83d692773a
+                  value: "404"
+                  varType: number
+                  variable_selector:
+                    - "1774407654946"
+                    - status_code
+              id: 73e89292-6813-4a58-a1db-e8a9e534a138
+              logical_operator: and
+            - case_id: f5efa6d6-61e4-4272-84dd-21a9a0ad6313
+              conditions:
+                - comparison_operator: "="
+                  id: 81e801d1-7373-4a60-89fd-393a01a2dc2a
+                  value: "400"
+                  varType: number
+                  variable_selector:
+                    - "1774407654946"
+                    - status_code
+              id: f5efa6d6-61e4-4272-84dd-21a9a0ad6313
+              logical_operator: and
+          selected: false
+          title: IF/ELSE 3
+          type: if-else
+        height: 220
+        id: "1774440983202"
+        position:
+          x: 1790
+          y: 190
+        positionAbsolute:
+          x: 1790
+          y: 190
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: "{{#1774447000001.summary#}}"
+          selected: false
+          title: Answer 5
+          type: answer
+          variables: []
+        height: 102
+        id: "1774441392922"
+        position:
+          x: 2494
+          y: 335
+        positionAbsolute:
+          x: 2494
+          y: 335
+        selected: true
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: Ticket não encontrado.
+          selected: false
+          title: Answer 6
+          type: answer
+          variables: []
+        height: 100
+        id: "1774441718365"
+        position:
+          x: 2152
+          y: 0
+        positionAbsolute:
+          x: 2152
+          y: 0
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: ID inválido. Use o formato TKT-1234.
+          selected: false
+          title: Answer 7
+          type: answer
+          variables: []
+        height: 100
+        id: "1774441776060"
+        position:
+          x: 2152
+          y: 180
+        positionAbsolute:
+          x: 2152
+          y: 180
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer:
+            Não foi possível concluir a solicitação agora. Tente novamente em
+            instantes.
+          selected: false
+          title: Answer 8
+          type: answer
+          variables: []
+        height: 116
+        id: "1774441825157"
+        position:
+          x: 2152
+          y: 852
+        positionAbsolute:
+          x: 2152
+          y: 852
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: "{{#1774447000002.summary#}}"
+          selected: false
+          title: Answer 9
+          type: answer
+          variables: []
+        height: 102
+        id: "1774441890075"
+        position:
+          x: 2132
+          y: 1260
+        positionAbsolute:
+          x: 2132
+          y: 1260
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          cases:
+            - case_id: "true"
+              conditions:
+                - comparison_operator: contains
+                  id: 0970b265-0ce1-4858-b229-8be5ab1c79eb
+                  value: "404"
+                  varType: string
+                  variable_selector:
+                    - "1774407654946"
+                    - error_message
+              id: "true"
+              logical_operator: and
+            - case_id: ac34f57d-989c-43a1-b7e5-905a25f12033
+              conditions:
+                - comparison_operator: contains
+                  id: 322b998d-7f43-4215-b8ec-b7d997f35399
+                  value: "400"
+                  varType: string
+                  variable_selector:
+                    - "1774407654946"
+                    - error_message
+              id: ac34f57d-989c-43a1-b7e5-905a25f12033
+              logical_operator: and
+          selected: false
+          title: IF/ELSE 4
+          type: if-else
+        height: 172
+        id: "1774443202581"
+        position:
+          x: 1790
+          y: 599
+        positionAbsolute:
+          x: 1790
+          y: 599
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: Ticket não encontrado.
+          selected: false
+          title: Answer 10
+          type: answer
+          variables: []
+        height: 100
+        id: "1774443319214"
+        position:
+          x: 2152
+          y: 492
+        positionAbsolute:
+          x: 2152
+          y: 492
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: ID inválido. Use o formato TKT-1234.
+          selected: false
+          title: Answer 11
+          type: answer
+          variables: []
+        height: 100
+        id: "1774444456781"
+        position:
+          x: 2152
+          y: 672
+        positionAbsolute:
+          x: 2152
+          y: 672
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          cases:
+            - case_id: "true"
+              conditions:
+                - comparison_operator: contains
+                  id: "1774445600101"
+                  value: "422"
+                  varType: string
+                  variable_selector:
+                    - "1774407454252"
+                    - error_message
+              id: "true"
+              logical_operator: and
+          selected: false
+          title: IF/ELSE 5
+          type: if-else
+        height: 124
+        id: "1774445600001"
+        position:
+          x: 1790
+          y: 1031
+        positionAbsolute:
+          x: 1790
+          y: 1031
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer:
+            Dados do ticket ausentes ou inválidos. Revise nome, email, assunto
+            e descrição.
+          selected: false
+          title: Answer 12
+          type: answer
+          variables: []
+        height: 132
+        id: "1774445600002"
+        position:
+          x: 2152
+          y: 1048
+        positionAbsolute:
+          x: 2152
+          y: 1048
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          code:
+            "import json\n\ndef main(body: str):\n    data = json.loads(body)\n\
+            \    return {\n        'summary': f\"Ticket localizado: ID {data['id']},\
+            \ status {data['status']}, assunto {data['subject']}.\"\n    }\n"
+          code_language: python3
+          outputs:
+            summary:
+              children: null
+              type: string
+          selected: false
+          title: Lookup Summary Code
+          type: code
+          variables:
+            - value_selector:
+                - "1774407654946"
+                - body
+              variable: body
+        height: 52
+        id: "1774447000001"
+        position:
+          x: 2152
+          y: 360
+        positionAbsolute:
+          x: 2152
+          y: 360
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          code:
+            "import json\n\ndef main(body: str):\n    data = json.loads(body)\n\
+            \    return {\n        'summary': f\"Ticket criado: ID {data['id']}, status\
+            \ {data['status']}, assunto {data['subject']}.\"\n    }\n"
+          code_language: python3
+          outputs:
+            summary:
+              children: null
+              type: string
+          selected: false
+          title: Create Summary Code
+          type: code
+          variables:
+            - value_selector:
+                - "1774407454252"
+                - body
+              variable: body
+        height: 52
+        id: "1774447000002"
+        position:
+          x: 1790
+          y: 1285
+        positionAbsolute:
+          x: 1790
+          y: 1285
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7
+  rag_pipeline_variables: []
