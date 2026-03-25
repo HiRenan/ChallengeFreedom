@@ -1,3 +1,4 @@
+import logging
 import sqlite3
 
 from fastapi.testclient import TestClient
@@ -30,6 +31,17 @@ def test_get_ticket_by_id_returns_custom_404_when_ticket_does_not_exist(tmp_path
     assert response.json() == {"detail": "Ticket not found."}
 
 
+def test_get_ticket_by_id_returns_400_when_ticket_id_format_is_invalid(tmp_path):
+    client = TestClient(create_app(db_path=tmp_path / "support-assistant.db"))
+
+    response = client.get("/tickets/abc123")
+
+    assert response.status_code == 400
+    assert response.json() == {
+        "detail": "Invalid ticket ID format. Use TKT-<number>."
+    }
+
+
 def test_post_tickets_creates_ticket_with_minimum_required_fields(tmp_path):
     client = TestClient(create_app(db_path=tmp_path / "support-assistant.db"))
     payload = {
@@ -52,7 +64,7 @@ def test_post_tickets_creates_ticket_with_minimum_required_fields(tmp_path):
     }
 
 
-def test_post_tickets_returns_default_422_when_required_field_is_missing(tmp_path):
+def test_post_tickets_returns_custom_422_when_required_field_is_missing(tmp_path):
     client = TestClient(create_app(db_path=tmp_path / "support-assistant.db"))
     payload = {
         "requester_name": "Ana Silva",
@@ -63,7 +75,30 @@ def test_post_tickets_returns_default_422_when_required_field_is_missing(tmp_pat
     response = client.post("/tickets", json=payload)
 
     assert response.status_code == 422
-    assert response.json()["detail"][0]["loc"] == ["body", "description"]
+    assert response.json() == {
+        "detail": "Missing or invalid ticket data.",
+        "missing_fields": ["description"],
+        "invalid_fields": [],
+    }
+
+
+def test_post_tickets_returns_custom_422_when_required_field_is_blank(tmp_path):
+    client = TestClient(create_app(db_path=tmp_path / "support-assistant.db"))
+    payload = {
+        "requester_name": "Ana Silva",
+        "requester_email": "ana@example.com",
+        "subject": "   ",
+        "description": "I cannot connect to the company VPN since this morning.",
+    }
+
+    response = client.post("/tickets", json=payload)
+
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": "Missing or invalid ticket data.",
+        "missing_fields": ["subject"],
+        "invalid_fields": [],
+    }
 
 
 def test_repository_creates_sqlite_database_and_seeds_once(tmp_path):
@@ -113,3 +148,25 @@ def test_post_tickets_persists_ticket_to_sqlite(tmp_path):
     assert row["id"] == ticket_id
     assert row["status"] == "open"
     assert row["created_at"]
+
+
+def test_lookup_and_creation_emit_operational_logs(tmp_path, caplog):
+    client = TestClient(create_app(db_path=tmp_path / "support-assistant.db"))
+
+    with caplog.at_level(logging.INFO, logger="challengefreedom.backend"):
+        lookup_response = client.get("/tickets/TKT-1001")
+        create_response = client.post(
+            "/tickets",
+            json={
+                "requester_name": "Joao Pereira",
+                "requester_email": "joao@example.com",
+                "subject": "Email account locked",
+                "description": "I need access to my inbox before the afternoon meeting.",
+            },
+        )
+
+    assert lookup_response.status_code == 200
+    assert create_response.status_code == 201
+    assert "Ticket lookup requested for TKT-1001" in caplog.text
+    assert "Ticket found for TKT-1001" in caplog.text
+    assert "Ticket created with id" in caplog.text
