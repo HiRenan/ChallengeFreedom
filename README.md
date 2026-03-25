@@ -151,7 +151,7 @@ Na integracao validada ate agora, o Chatflow ja foi testado com:
 - criacao com dados faltantes
 - criacao com dados completos
 
-O deploy final com URL estavel continua para o bloco `M`.
+O deploy final com URL estavel ainda sera concluido em uma etapa posterior.
 
 ## Capacidades Implementadas
 
@@ -174,10 +174,12 @@ Hoje o projeto ja cobre:
 ## Documentacao Complementar
 
 - `docs/architecture-and-decisions.md` - decisoes de arquitetura, simplificacoes e limites do estado atual
+- `docs/studio-export-guide.md` - passo a passo do checkpoint DSL e estado atual do Chatflow
+- `docs/demo-script.md` - roteiro literal da demo e prompts de gravacao
 
 ## Artefatos Finais
 
-Ainda serao fechados nos proximos blocos:
+Ainda faltam estes artefatos para a entrega final:
 
 - export final do Chatflow
 - video curto de demonstracao

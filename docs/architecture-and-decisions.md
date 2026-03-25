@@ -45,4 +45,4 @@ O projeto ja esta funcional em execucao local e integracao temporaria, mas ainda
 - video curto da demo
 - deploy final estavel
 
-Esses pontos ficam explicitamente para os blocos `L` e `M`.
+Esses pontos ficam explicitamente para a fase final de empacotamento, gravacao e deploy estavel.
