@@ -1,0 +1,11 @@
+from pathlib import Path
+import sys
+
+
+# Ensure `pytest backend/tests -q` can import the top-level `backend` package
+# even when the pytest entrypoint sets sys.path to the test directory first.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+project_root_str = str(PROJECT_ROOT)
+
+if project_root_str not in sys.path:
+    sys.path.insert(0, project_root_str)

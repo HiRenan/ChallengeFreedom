@@ -408,11 +408,11 @@ workflow:
       height: 73
       id: '1774406282983'
       position:
-        x: 0
-        y: 452
+        x: -11.904761904761898
+        y: 345
       positionAbsolute:
-        x: 0
-        y: 452
+        x: -11.904761904761898
+        y: 345
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -435,13 +435,7 @@ workflow:
           dados do ticket. Use lookup_ticket apenas quando o usuario quiser consultar
           um ticket existente por ID. Use ambiguous quando a mensagem for vaga e nao
           indicar claramente se quer informacao, consulta ou criacao.
-        instructions: Classifique como knowledge quando o usuario estiver pedindo
-          informacao, FAQ, politica, procedimento ou requisitos, incluindo perguntas
-          sobre quais dados sao necessarios para abrir um ticket. Use create_ticket
-          apenas quando o usuario estiver tentando abrir um ticket para um problema
-          real ou fornecendo dados do ticket. Use lookup_ticket apenas quando o usuario
-          quiser consultar um ticket existente por ID. Use ambiguous quando a mensagem
-          for vaga e nao indicar claramente se quer informacao, consulta ou criacao.
+        instructions: ''
         model:
           completion_params:
             temperature: 0.7
@@ -464,7 +458,7 @@ workflow:
       positionAbsolute:
         x: 342
         y: 366
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -771,7 +765,7 @@ workflow:
       positionAbsolute:
         x: 1428
         y: 1035.7142857142858
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -953,12 +947,13 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: Ticket não encontrado.
+        answer: Este Ticket não foi encontrado. Poderia verificar suas informações
+          por gentileza.
         selected: false
         title: Answer 6
         type: answer
         variables: []
-      height: 100
+      height: 132
       id: '1774441718365'
       position:
         x: 2152
@@ -972,12 +967,12 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: ID inválido. Use o formato TKT-1234.
+        answer: Este ID está inválido. Por gentileza use o formato TKT-1234.
         selected: false
         title: Answer 7
         type: answer
         variables: []
-      height: 100
+      height: 116
       id: '1774441776060'
       position:
         x: 2152
@@ -991,13 +986,13 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: Não foi possível concluir a solicitação agora. Tente novamente em
-          instantes.
+        answer: Atualmente não foi possível concluir a sua solicitação. Por gentileza,
+          tente novamente em instantes.
         selected: false
         title: Answer 8
         type: answer
         variables: []
-      height: 116
+      height: 132
       id: '1774441825157'
       position:
         x: 2152
@@ -1070,12 +1065,13 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: Ticket não encontrado.
+        answer: Este Ticket não foi encontrado. Poderia verificar suas informações
+          por gentileza.
         selected: false
         title: Answer 10
         type: answer
         variables: []
-      height: 100
+      height: 132
       id: '1774443319214'
       position:
         x: 2152
@@ -1089,12 +1085,12 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: ID inválido. Use o formato TKT-1234.
+        answer: Este ID está inválido. Por gentileza use o formato TKT-1234.
         selected: false
         title: Answer 11
         type: answer
         variables: []
-      height: 100
+      height: 116
       id: '1774444456781'
       position:
         x: 2152
@@ -1137,8 +1133,8 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: Dados do ticket ausentes ou inválidos. Revise nome, email, assunto
-          e descrição.
+        answer: Seus dados inseridos do ticket estão ausentes ou inválidos. Por gentileza
+          revise nome, email, assunto e descrição.
         selected: false
         title: Answer 12
         type: answer
@@ -1217,7 +1213,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: -274.9999999999998
-      y: -65
-      zoom: 0.7
+      x: -72.44620198902635
+      y: -69.24614197530866
+      zoom: 0.6697959533607684
   rag_pipeline_variables: []
