@@ -175,6 +175,7 @@ Hoje o projeto ja cobre:
 
 - `docs/architecture-and-decisions.md` - decisoes de arquitetura, simplificacoes e limites do estado atual
 - `docs/studio-export-guide.md` - passo a passo do checkpoint DSL e estado atual do Chatflow
+- `docs/studio-flow-walkthrough.md` - explicacao do fluxo do Studio, no por no
 - `docs/demo-script.md` - roteiro literal da demo e prompts de gravacao
 - `docs/railway-deploy-guide.md` - guia do deploy final do backend no Railway
 

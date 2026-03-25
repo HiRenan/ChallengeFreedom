@@ -5,28 +5,24 @@
 - o canvas do Chatflow esta completo
 - nao ha nos desconectados visiveis
 - o draft esta salvo com status `Auto-Saved`
-- o app segue `Unpublished`
-- os nos `HTTP Request` ainda apontam para a URL temporaria do `trycloudflare`
+- o app ja foi publicado
+- os nos `HTTP Request` apontam para a URL final do Railway
 
-Resumo do comportamento atual do draft:
+Resumo do comportamento atual:
 
 - perguntas documentais seguem para `Knowledge Retrieval`
 - lookup exige `ticket_id`
 - criacao exige `requester_name`, `requester_email`, `subject` e `description`
 - entradas ambiguas caem em esclarecimento
 - lookup e create ja retornam respostas finais curtas
+- o export final do Studio ja existe em `artifacts/studio/assistente-de-suporte-final.dsl.yml`
 
-## Checkpoint Do Studio
+## Arquivos Do Studio
 
-O objetivo deste checkpoint e salvar o estado atual do fluxo antes do deploy estavel da versao final.
-
-Arquivo recomendado:
-
-- `artifacts/studio/assistente-de-suporte-checkpoint.dsl.yml`
-
-Arquivo final depois do deploy estavel:
-
-- `artifacts/studio/assistente-de-suporte-final.dsl.yml`
+- checkpoint intermediario:
+  - `artifacts/studio/assistente-de-suporte-checkpoint.dsl.yml`
+- export final publicado:
+  - `artifacts/studio/assistente-de-suporte-final.dsl.yml`
 
 ## Como Exportar O DSL
 
@@ -41,7 +37,9 @@ Passo a passo:
 2. confirmar que o topo mostra `Auto-Saved`
 3. abrir a acao `Export DSL`
 4. se houver pergunta sobre variaveis secretas, nao incluir segredos no arquivo exportado
-5. salvar o arquivo com o nome `assistente-de-suporte-checkpoint.dsl.yml`
+5. salvar o arquivo com o nome adequado ao momento:
+   - `assistente-de-suporte-checkpoint.dsl.yml` para snapshot intermediario
+   - `assistente-de-suporte-final.dsl.yml` para a versao final publicada
 6. mover ou salvar o arquivo em `artifacts/studio/`
 7. confirmar com `git status --short` que o arquivo apareceu como novo
 
@@ -63,9 +61,9 @@ O export nao leva:
 
 ## Verificacoes Antes Do Fechamento Final
 
-Antes de considerar o checkpoint pronto:
+Antes de considerar o export final pronto:
 
-- confirmar que o export saiu do draft mais recente
-- manter um print ou nota do status `Unpublished`, porque ainda nao existe versao publicada
-- nao tratar esse DSL como artefato final da submissao
-- repetir o export depois do deploy estavel e do publish final
+- confirmar que o export saiu da versao mais recente publicada
+- confirmar que os nos `HTTP Request` apontam para a URL final do backend
+- manter o checkpoint anterior apenas como referencia
+- tratar o arquivo final como o artefato principal do Studio para a submissao
