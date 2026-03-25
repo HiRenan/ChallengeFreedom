@@ -16,8 +16,8 @@ def test_get_ticket_by_id_returns_existing_ticket(tmp_path):
         "id": "TKT-1001",
         "requester_name": "Marina Costa",
         "requester_email": "marina.costa@example.com",
-        "subject": "Cannot access payroll portal",
-        "description": "The payroll portal keeps showing an access denied message.",
+        "subject": "VPN access blocked",
+        "description": "I cannot connect to the company VPN since this morning.",
         "status": "open",
     }
 
